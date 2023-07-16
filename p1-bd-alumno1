@@ -1,0 +1,128 @@
+Vagrant.configure("2") do |config|
+
+config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.cpus = 2
+    libvirt.memory = 1024
+  end
+
+  config.vm.define :servidororacle1 do |servidororacle1|
+    servidororacle1.vm.box = "debian/bullseye64"
+    servidororacle1.vm.provider :libvirt do |servidororacle1|
+      servidororacle1.memory = 3072
+      servidororacle1.cpus = 5
+    end
+    servidororacle1.vm.hostname = "servidororacle1"
+    servidororacle1.vm.network :private_network,
+      :libvirt__network_name => "red-oracle",
+      :libvirt__dhcp_enabled => false,
+      :ip => "10.0.0.2",
+      :libvirt__netmask => '255.255.255.0',
+      :libvirt__forward_mode => "veryisolated"
+  end
+
+  config.vm.define :servidororacle2 do |servidororacle2|
+    servidororacle2.vm.box = "debian/bullseye64"
+    servidororacle2.vm.provider :libvirt do |servidororacle2|
+      servidororacle2.memory = 3072
+      servidororacle2.cpus =5
+    end
+    servidororacle2.vm.hostname = "servidororacle2"
+    servidororacle2.vm.network :private_network,
+      :libvirt__network_name => "red-oracle",
+      :libvirt__dhcp_enabled => false,
+      :ip => "10.0.0.3",
+      :libvirt__netmask => '255.255.255.0',
+      :libvirt__forward_mode => "veryisolated"
+  end
+
+  config.vm.define :clienteoracle do |clienteoracle|
+    clienteoracle.vm.box = "debian/bullseye64"
+    clienteoracle.vm.hostname = "clienteoracle"
+    clienteoracle.vm.network :private_network,
+      :libvirt__network_name => "red-oracle",
+      :libvirt__dhcp_enabled => false,
+      :ip => "10.0.0.4",
+      :libvirt__netmask => '255.255.255.0',
+      :libvirt__forward_mode => "veryisolated"
+  end
+
+  config.vm.define :servidorpostgresql1 do |servidorpostgresql1|
+    servidorpostgresql1.vm.box = "debian/bullseye64"
+    servidorpostgresql1.vm.hostname = "servidorpostgresql1"
+    servidorpostgresql1.vm.network :private_network,
+      :libvirt__network_name => "red-postgresql",
+      :libvirt__dhcp_enabled => false,
+      :ip => "10.0.1.2",
+      :libvirt__netmask => '255.255.255.0',
+      :libvirt__forward_mode => "veryisolated"
+  end
+
+  config.vm.define :servidorpostgresql2 do |servidorpostgresql2|
+    servidorpostgresql2.vm.box = "debian/bullseye64"
+    servidorpostgresql2.vm.hostname = "servidorpostgresql2"
+    servidorpostgresql2.vm.network :private_network,
+      :libvirt__network_name => "red-postgresql",
+      :libvirt__dhcp_enabled => false,
+      :ip => "10.0.1.3",
+      :libvirt__netmask => '255.255.255.0',
+      :libvirt__forward_mode => "veryisolated"
+  end
+
+  config.vm.define :clientepostgresql do |clientepostgresql|
+    clientepostgresql.vm.box = "debian/bullseye64"
+    clientepostgresql.vm.hostname = "clientepostgresql"
+    clientepostgresql.vm.network :private_network,
+      :libvirt__network_name => "red-postgresql",
+      :libvirt__dhcp_enabled => false,
+      :ip => "10.0.1.4",
+      :libvirt__netmask => '255.255.255.0',
+      :libvirt__forward_mode => "veryisolated"
+  end
+
+  config.vm.define :servidormariadb do |servidormariadb|
+    servidormariadb.vm.box = "debian/bullseye64"
+    servidormariadb.vm.hostname = "servidormariadb"
+    servidormariadb.vm.network :private_network,
+      :libvirt__network_name => "red-mariadb",
+      :libvirt__dhcp_enabled => false,
+      :ip => "10.0.2.2",
+      :libvirt__netmask => '255.255.255.0',
+      :libvirt__forward_mode => "veryisolated"
+  end
+
+  config.vm.define :clientemariadb do |clientemariadb|
+    clientemariadb.vm.box = "debian/bullseye64"
+    clientemariadb.vm.hostname = "clientemariadb"
+    clientemariadb.vm.network :private_network,
+      :libvirt__network_name => "red-mariadb",
+      :libvirt__dhcp_enabled => false,
+      :ip => "10.0.2.3",
+      :libvirt__netmask => '255.255.255.0',
+      :libvirt__forward_mode => "veryisolated"
+  end
+
+  config.vm.define :servidormongodb do |servidormongodb|
+    servidormongodb.vm.box = "debian/bullseye64"
+    servidormongodb.vm.hostname = "servidormongodb"
+    servidormongodb.vm.network :private_network,
+      :libvirt__network_name => "red-mongodb",
+      :libvirt__dhcp_enabled => false,
+      :ip => "10.0.3.2",
+      :libvirt__netmask => '255.255.255.0',
+      :libvirt__forward_mode => "veryisolated"
+  end
+
+  config.vm.define :clientemongodb do |clientemongodb|
+    clientemongodb.vm.box = "debian/bullseye64"
+    clientemongodb.vm.hostname = "clientemongodb"
+    clientemongodb.vm.network :private_network,
+      :libvirt__network_name => "red-mongodb",
+      :libvirt__dhcp_enabled => false,
+      :ip => "10.0.3.3",
+      :libvirt__netmask => '255.255.255.0',
+      :libvirt__forward_mode => "veryisolated"
+  end
+
+end

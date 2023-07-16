@@ -1,0 +1,15 @@
+Vagrant.configure("2") do |config|
+
+config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.cpus = 10
+    libvirt.memory = 3072
+  end
+
+  config.vm.define :pruebas do |pruebas|
+    pruebas.vm.box = "debian/bullseye64"
+    pruebas.vm.hostname = "pruebas"
+  end
+
+end
